@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 declare global {
@@ -10,6 +10,11 @@ declare global {
 
 export default function PayButton({ email, amount, name, setStage, setReference }: { email: string, amount: number, name: string, setStage: (stage: "amount" | "name" | "processing" | "success" | "fail") => void, setReference: (reference: string) => void }) {
     const [isHovered, setIsHovered] = useState(false);
+    const [baseUrl, setBaseUrl] = useState("");
+
+    useEffect(() => {
+        setBaseUrl(window.location.origin);
+    }, []);
     const pay = () => {
         setStage("processing")
         if (!window.PaystackPop) {
@@ -41,7 +46,7 @@ export default function PayButton({ email, amount, name, setStage, setReference 
     };
 
     const verifyPayment = async (reference: string) => {
-        const res = await fetch("http://localhost:3001/api/verify", {
+        const res = await fetch(`${baseUrl}/api/verify`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
