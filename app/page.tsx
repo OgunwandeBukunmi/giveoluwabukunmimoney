@@ -9,7 +9,10 @@ import {
   TrendingUp,
   History,
   ShieldCheck,
-  CreditCard, User2, XCircle
+  CreditCard, User2, XCircle,
+  FlameKindling,
+  LucideFlame,
+  Flame
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -93,13 +96,20 @@ export default function Home() {
                       key={val}
                       onClick={() => setAmount(val)}
                       className={cn(
-                        "flex-1 py-2 rounded-xl text-sm font-medium transition-all duration-200 border",
+                        " relative flex-1 py-2 rounded-xl text-sm font-medium transition-all duration-200 border",
                         amount === val
                           ? "bg-indigo-500 border-indigo-400 text-white"
                           : "bg-white/5 border-white/5 text-slate-400 hover:bg-white/10 hover:border-white/20"
                       )}
                     >
                       ₦{val}
+                      {val === 2000 ?
+                        <span className="absolute -right-1 -top-1">
+                          <Flame className="text-[#ff033e] w-4.5 h-4.5 font-extrabold" />
+
+                        </span> : (<></>)
+                      }
+
                     </button>
                   ))}
                 </div>
